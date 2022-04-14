@@ -58,6 +58,28 @@ async function getJobStatus(jobName) {
       })
     );
 }
+
+
+async function getJobConsoleText(jobUrl) {
+  const jenkinsEndpoint = core.getInput('url');
+  const req = {
+    method: 'get',
+    url: `${jobUrl}/consoleText`,
+    headers: {
+      'Authorization': `Basic ${API_TOKEN}`
+    }
+  }
+  return new Promise((resolve, reject) =>
+      request(req, (err, res, body) => {
+        if (err) {
+          clearTimeout(timer);
+          reject(err);
+        }
+        resolve(body);
+      })
+    );
+}
+
 async function waitJenkinsJob(jobName, timestamp) {
   core.info(`>>> Waiting for "${jobName}" ...`);
   while (true) {
@@ -66,6 +88,11 @@ async function waitJenkinsJob(jobName, timestamp) {
       core.info(`>>> Job is not started yet... Wait 5 seconds more...`)
     } else if (data.result == "SUCCESS") {
       core.info(`>>> Job "${data.fullDisplayName}" successfully completed!`);
+      core.info(`>>> Job "${data.fullDisplayName}" console output`);
+
+      const consoleText = getJobConsoleText(data.url)
+      core.info(`>>> Job "${data.fullDisplayName}" console output`);
+      core.info(consoleText);
       break;
     } else if (data.result == "FAILURE" || data.result == "ABORTED") {
       throw new Error(`Failed job ${data.fullDisplayName}`);
