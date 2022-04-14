@@ -1,3 +1,33 @@
+### This GitHub action is a clone from the exclellent [estherk0/jenkins-trigger](https://github.com/estherk0/jenkins-trigger)
+<br />
+My reasons for cloning the main repo is that calling:
+
+```javascript
+  method: 'POST',
+  url: `${jenkinsEndpoint}/job/${jobName}/buildWithParameters`,
+```
+
+**does not** always triggers the Jenkins job
+<br />
+while calling:
+
+```javascript
+  method: 'POST',
+  url: `${jenkinsEndpoint}/job/${jobName}/build?delay=0sec`,
+```
+
+**does** always triggers the Jenkins job.
+
+I'm thinking about making a PR to the main repo
+<br />
+but at this point, I'm uncertain if the chage will be helpful for all user-cases.
+<br />
+So I have decided to just make a clone of the original repo that serves my needs :)
+
+-----------------
+
+
+
 # Jenkins job trigger action
 Github Action to trigger jenkins job and wait for job completion using Jenkins API.  
 Welcome your feedback and request. :open_hands:
@@ -25,7 +55,7 @@ Please see [How to get the API Token for Jenkins](https://stackoverflow.com/ques
 ### Example
 ```yaml
 - name: Trigger jenkins job
-  uses: /IvanDimanov-MoveDigital/jenkins-trigger@main
+  uses: IvanDimanov-MoveDigital/jenkins-trigger@main
   with:
     url: ${{ secrets.JENKINS_URL }}
     job_name: "build_web_application"
