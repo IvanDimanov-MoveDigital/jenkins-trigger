@@ -90,7 +90,7 @@ async function waitJenkinsJob(jobName, timestamp) {
       core.info(`>>> Job "${data.fullDisplayName}" successfully completed!`);
       core.info(`>>> Job "${data.fullDisplayName}" console output`);
 
-      const consoleText = getJobConsoleText(data.url)
+      const consoleText = await getJobConsoleText(data.url)
       core.info(`>>> Job "${data.fullDisplayName}" console output`);
       core.info(consoleText);
       break;
