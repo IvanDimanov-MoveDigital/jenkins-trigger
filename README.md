@@ -25,7 +25,7 @@ Please see [How to get the API Token for Jenkins](https://stackoverflow.com/ques
 ### Example
 ```yaml
 - name: Trigger jenkins job
-  uses: jabbukka/jenkins-trigger@main
+  uses: /IvanDimanov-MoveDigital/jenkins-trigger@main
   with:
     url: ${{ secrets.JENKINS_URL }}
     job_name: "build_web_application"
